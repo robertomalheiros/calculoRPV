@@ -17,7 +17,7 @@ export default function Home() {
 
   function handleCalcular(e) {
     e.preventDefault();
-    console.log(form.total);
+
     const {
       total,
       valorAnterior,
@@ -28,18 +28,18 @@ export default function Home() {
 
 
 
-    const vtotal = parseInt(parseFloat(total.replace(/\./g, '').replace(',', '.')))
-    const vAnterior = parseInt(valorAnterior)
-    const vAtual = parseInt(valorAtual)
+    const vtotal = parseFloat(total.replace(/\./g, '').replace(',', '.'))
+    const vAnterior = parseFloat(valorAnterior)
+    const vAtual = parseFloat(valorAtual)
     const pAnteriores = parseInt(parcelasAnteriores)
     const pAtuais = parseInt(parcelasAtuais)
 
-    const totalAnterior =  (vtotal / (pAtuais+pAnteriores)) * pAnteriores
-    const totalvAtual = (vtotal / (pAtuais+pAnteriores)) * pAtuais
+    const totalAnterior =  parseFloat((vtotal / (pAtuais+pAnteriores)) * pAnteriores)
+    const totalvAtual = parseFloat((vtotal / (pAtuais+pAnteriores)) * pAtuais)
     
 
     console.log(vtotal)
-    console.log(totalvAtual.toFixed(2))
+
  
 
     setForm({
