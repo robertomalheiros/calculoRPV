@@ -137,28 +137,10 @@ export default function Home() {
                   Valor Atual
                 </label>
               </div>
-              <div className="relative z-0 w-full mb-6 group">
-                <p className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+              <p className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                   Em construção
                 </p>
-                <Datepicker
-                  onChange={handleValores}
-                  labelClearButton="Limpar"
-                  labelTodayButton="Hoje"
-                  language="pt-BR"
-                  name="dataAnt"
-                />
-                <p className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                  Em construção
-                </p>
-                <Datepicker
-                  onChange={handleValores}
-                  labelClearButton="Limpar"
-                  labelTodayButton="Hoje"
-                  language="pt-BR"
-                  name="dataAtua"
-                />
-              </div>
+             
               <div className="relative z-0 w-full mb-6 group">
                 <input
                   type="number"
@@ -196,6 +178,31 @@ export default function Home() {
                 </label>
               </div>
             </div>
+            <div className="relative z-0 w-full mb-6 group">
+
+<p></p>
+<p></p>
+<p className="block text-gray-700 text-sm font-bold mb-2">
+            DIB:
+          </p>
+<Datepicker
+  onChange={handleValores}
+  labelClearButton="Limpar"
+  labelTodayButton="Hoje"
+  language="pt-BR"
+  name="dataAnt"
+/>
+<p className="block text-gray-700 text-sm font-bold mb-2">
+            DIP:
+          </p>
+<Datepicker
+  onChange={handleValores}
+  labelClearButton="Limpar"
+  labelTodayButton="Hoje"
+  language="pt-BR"
+  name="dataAtua"
+/>
+</div>
             <button
               type="submit"
               onClick={handleCalcular}
