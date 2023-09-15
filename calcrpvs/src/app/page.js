@@ -1,10 +1,17 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 //import BuscaDados from "./components/BuscaDados";
-import { Datepicker } from "flowbite-react";
+import Datepicker from "react-tailwindcss-datepicker";
 
 export default function Home() {
+
+  const [value, setValue] = useState({
+    startDate: new Date(),
+    endDate: new Date().setMonth(11)
+});
+
+
   const [form, setForm] = useState({
     total: "",
     valorAnterior: 0,
@@ -19,6 +26,11 @@ export default function Home() {
     usuario: "",
     password: "",
   });
+
+  const handleValueChange = (newValue) => {
+    console.log("newValue:", newValue);
+    setValue(newValue);
+}
 
   function handleValores(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -62,13 +74,14 @@ export default function Home() {
       (vtotal / (pAtuais + pAnteriores)) * pAtuais
     );
 
-    console.log(vtotal);
+  
 
     setForm({
       ...form,
       valorAnterior: totalAnterior.toFixed(2),
       valorAtual: totalvAtual.toFixed(2),
     });
+    console.log(value);
   }
 
   return (
@@ -179,29 +192,11 @@ export default function Home() {
               </div>
             </div>
             <div className="relative z-0 w-full mb-6 group">
-
-<p></p>
-<p></p>
-<p className="block text-gray-700 text-sm font-bold mb-2">
-            DIB:
-          </p>
-<Datepicker
-  onChange={handleValores}
-  labelClearButton="Limpar"
-  labelTodayButton="Hoje"
-  language="pt-BR"
-  name="dataAnt"
-/>
-<p className="block text-gray-700 text-sm font-bold mb-2">
-            DIP:
-          </p>
-<Datepicker
-  onChange={handleValores}
-  labelClearButton="Limpar"
-  labelTodayButton="Hoje"
-  language="pt-BR"
-  name="dataAtua"
-/>
+    
+            <Datepicker
+                value={value}
+                onChange={handleValueChange}
+            />
 </div>
             <button
               type="submit"
