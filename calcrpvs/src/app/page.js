@@ -11,6 +11,16 @@ export default function Home() {
     endDate: new Date().setMonth(11)
 });
 
+const [DIB, setDIB] = useState({
+  ano: "",
+  mes: "",
+  dia: "",
+})
+const [DIP, setDIP] = useState({
+  ano: "",
+  mes: "",
+  dia: "",
+})
 
   const [form, setForm] = useState({
     total: "",
@@ -30,6 +40,10 @@ export default function Home() {
   const handleValueChange = (newValue) => {
     console.log("newValue:", newValue);
     setValue(newValue);
+    
+
+    
+
 }
 
   function handleValores(e) {
@@ -191,6 +205,9 @@ export default function Home() {
                 </label>
               </div>
             </div>
+            <p className="block text-gray-700 text-sm font-bold mb-2">
+            DIB - DIP:
+          </p>
             <div className="relative z-0 w-full mb-6 group">
     
             <Datepicker
