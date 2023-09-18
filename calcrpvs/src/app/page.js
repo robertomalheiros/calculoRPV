@@ -98,7 +98,7 @@ export default function Home() {
 
     }else if (lDIB[2] >= lDataAtual[0] && lDIP[2] >= lDataAtual[0]){
       pAnteriores = 0
-      pAtuais = parseInt(lDIP[1]) - parseInt(lDIB[1]) + 2
+      pAtuais = parseInt(lDIP[1]) - parseInt(lDIB[1]) + 1
       console.log(exerDIB)
       console.log(exerDIP)
       console.log("Segundo")
