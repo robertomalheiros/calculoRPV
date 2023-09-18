@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 //import BuscaDados from "./components/BuscaDados";
-import Datepicker from "react-tailwindcss-datepicker";
+//import Datepicker from "react-tailwindcss-datepicker";
 
 export default function Home() {
 
@@ -11,25 +11,14 @@ export default function Home() {
     endDate: new Date().setMonth(11)
 });
 
-const [DIB, setDIB] = useState({
-  ano: "",
-  mes: "",
-  dia: "",
-})
-const [DIP, setDIP] = useState({
-  ano: "",
-  mes: "",
-  dia: "",
-})
-
   const [form, setForm] = useState({
     total: "",
     valorAnterior: 0,
     valorAtual: 0,
     parcelasAnteriores: 0,
     parcelasAtuais: 0,
-    dataAnt: "",
-    dataAtua: "",
+    DIB: "",
+    DIP: "",
   });
   const [formProc, setFormProc] = useState({
     processo: "",
@@ -37,14 +26,12 @@ const [DIP, setDIP] = useState({
     password: "",
   });
 
-  const handleValueChange = (newValue) => {
+ /* const handleValueChange = (newValue) => {
     console.log("newValue:", newValue);
     setValue(newValue);
+ 
     
-
-    
-
-}
+}*/
 
   function handleValores(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -73,13 +60,46 @@ const [DIP, setDIP] = useState({
       valorAtual,
       parcelasAnteriores,
       parcelasAtuais,
+      DIB,
+      DIP,
     } = form;
 
+    const dataAtual = new Date().toISOString().substring(0, 10);
+    const lDataAtual = dataAtual.trim().split("-")
+    const lDIB = DIB.trim().split("/")
+    const lDIP = DIP.trim().split("/")
+    let exerDIP= lDIP[2] < lDataAtual[0] ? ((parseInt(lDIP[lDIP.length -1 ]) - lDIB[lDIB.length -1 ] )*13) + (parseInt(lDIP[1]) - 13): parseInt(lDIP[1])
+    let exerDIB= lDIB[2] < lDataAtual[0] ? ((parseInt(lDIP[lDIP.length -1 ]) - lDIB[lDIB.length -1 ] )*13) -  exerDIP: parseInt(lDIP[1])
     const vtotal = parseFloat(total.replace(/\./g, "").replace(",", "."));
-    const vAnterior = parseFloat(valorAnterior);
-    const vAtual = parseFloat(valorAtual);
-    const pAnteriores = parseInt(parcelasAnteriores);
-    const pAtuais = parseInt(parcelasAtuais);
+    let pAnteriores = 0
+    let pAtuais =  0
+
+    if (lDIB[2] < lDataAtual[0] && lDIP[2] < lDataAtual[0]){
+      pAnteriores = exerDIB + exerDIP
+      pAtuais = 0
+
+      console.log("Primeiro")
+   
+      console.log(pAnteriores)
+      console.log(pAtuais)
+  
+
+    }else if (lDIB[2] >= lDataAtual[0] && lDIP[2] >= lDataAtual[0]){
+      pAnteriores = 0
+      pAtuais = exerDIB + exerDIP
+      console.log("Segundo")
+      console.log(pAnteriores)
+      console.log(pAtuais)
+  
+    }else if (lDIB[2] < lDataAtual[0] && lDIP[2] >= lDataAtual[0]){
+      pAnteriores = exerDIB
+      pAtuais = exerDIP
+      console.log("Terceiro")
+      console.log(pAnteriores)
+      console.log(pAtuais)
+  
+    }
+
 
     const totalAnterior = parseFloat(
       (vtotal / (pAtuais + pAnteriores)) * pAnteriores
@@ -92,10 +112,12 @@ const [DIP, setDIP] = useState({
 
     setForm({
       ...form,
+      parcelasAnteriores: pAnteriores,
+      parcelasAtuais: pAtuais,
       valorAnterior: totalAnterior.toFixed(2),
       valorAtual: totalvAtual.toFixed(2),
     });
-    console.log(value);
+    //console.log(form);
   }
 
   return (
@@ -103,7 +125,7 @@ const [DIP, setDIP] = useState({
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <div className="flex-col items-center md:gap-6">
           <p className="block text-gray-700 text-sm font-bold mb-2">
-            Cálculo Rural
+           CÁLCULO RPVs
           </p>
           <br></br>
           <br></br>
@@ -206,15 +228,56 @@ const [DIP, setDIP] = useState({
               </div>
             </div>
             <p className="block text-gray-700 text-sm font-bold mb-2">
-            DIB - DIP:
+            DIB:
           </p>
-            <div className="relative z-0 w-full mb-6 group">
-    
+          
+          <div className="relative z-0 w-full mb-6 group">
+                <input
+                  type="text"
+                  value={form.DIB}
+                  onChange={handleValores}
+                  name="DIB"
+                  id="floating_last_name"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  htmlFor="floating_last_name"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  data de início do benefício
+                </label>
+              </div>{" "}
+              <p className="block text-gray-700 text-sm font-bold mb-2">
+            DIP:
+          </p>
+          
+          <div className="relative z-0 w-full mb-6 group">
+                <input
+                  type="text"
+                  value={form.DIP}
+                  onChange={handleValores}
+                  name="DIP"
+                  id="floating_last_name"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  htmlFor="floating_last_name"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  data de início do pagamento
+                </label>
+              </div>{" "}
+            {/* <div className="relative z-0 w-full mb-6 group">
+   
             <Datepicker
                 value={value}
                 onChange={handleValueChange}
             />
-</div>
+</div>*/}
             <button
               type="submit"
               onClick={handleCalcular}
