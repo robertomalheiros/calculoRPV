@@ -133,6 +133,9 @@ export default function Home() {
            CÁLCULO RPVs
           </p>
           <br></br>
+          <p className="block text-gray-700 text-sm font-bold mb-2">
+           Preenchimento da RRA:
+          </p>
           <br></br>
           <br></br>
           <form>
@@ -182,7 +185,7 @@ export default function Home() {
               </div>
             <div className="grid md:grid-cols-2 md:gap-6">
          <p className="block text-gray-700 text-sm font-bold mb-2">
-            Total:
+         COMPOSIÇÃO DOS VALORES ATRASADOS:
             <input
                   type="text"
                   value={form.total}
