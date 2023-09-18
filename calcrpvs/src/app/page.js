@@ -136,9 +136,54 @@ export default function Home() {
           <br></br>
           <br></br>
           <form>
-            <div className="grid md:grid-cols-2 md:gap-6">
-              <div className="relative z-0 w-full mb-6 group">
+            <p className="block text-gray-700 text-sm font-bold mb-2">
+            DIB:
+          </p>
+          
+          <div className="relative z-0 w-full mb-6 group">
                 <input
+                  type="text"
+                  value={form.DIB}
+                  onChange={handleValores}
+                  name="DIB"
+                  id="floating_last_name"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  htmlFor="floating_last_name"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  data de início do benefício
+                </label>
+              </div>{" "}
+              <p className="block text-gray-700 text-sm font-bold mb-2">
+            DIP:
+          </p>
+          
+          <div className="relative z-0 w-full mb-6 group">
+                <input
+                  type="text"
+                  value={form.DIP}
+                  onChange={handleValores}
+                  name="DIP"
+                  id="floating_last_name"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  htmlFor="floating_last_name"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  data de início do pagamento
+                </label>
+              </div>
+            <div className="grid md:grid-cols-2 md:gap-6">
+         <p className="block text-gray-700 text-sm font-bold mb-2">
+            Total:
+            <input
                   type="text"
                   value={form.total}
                   onChange={handleValores}
@@ -148,12 +193,12 @@ export default function Home() {
                   placeholder=" "
                   required
                 />
-                <label
-                  htmlFor="floating_first_name"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Total
-                </label>
+
+          </p>
+          
+          <div className="relative z-0 w-full mb-6 group">
+                
+               
               </div>
               <div className="relative z-0 w-full mb-6 group">
                 <input
@@ -232,50 +277,7 @@ export default function Home() {
                 </label>
               </div>
             </div>
-            <p className="block text-gray-700 text-sm font-bold mb-2">
-            DIB:
-          </p>
-          
-          <div className="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  value={form.DIB}
-                  onChange={handleValores}
-                  name="DIB"
-                  id="floating_last_name"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  htmlFor="floating_last_name"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  data de início do benefício
-                </label>
-              </div>{" "}
-              <p className="block text-gray-700 text-sm font-bold mb-2">
-            DIP:
-          </p>
-          
-          <div className="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  value={form.DIP}
-                  onChange={handleValores}
-                  name="DIP"
-                  id="floating_last_name"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  htmlFor="floating_last_name"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  data de início do pagamento
-                </label>
-              </div>{" "}
+            {" "}
             {/* <div className="relative z-0 w-full mb-6 group">
    
             <Datepicker
