@@ -25,3 +25,9 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+footer{
+  background-color: #0a4275;
+}
+header{
+  background-color: #0a4275;
+}
