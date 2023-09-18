@@ -69,7 +69,8 @@ export default function Home() {
     const lDIB = DIB.trim().split("/")
     const lDIP = DIP.trim().split("/")
     let exerDIP= lDIP[2] < lDataAtual[0] ? ((parseInt(lDIP[lDIP.length -1 ]) - lDIB[lDIB.length -1 ] )*13) + (parseInt(lDIP[1]) - 13): parseInt(lDIP[1])
-    let exerDIB= lDIB[2] < lDataAtual[0] ? ((parseInt(lDIP[lDIP.length -1 ]) - lDIB[lDIB.length -1 ] )*13) -  exerDIP: parseInt(lDIP[1])
+    
+    let exerDIB= lDIB[2] < lDataAtual[0] ? ((parseInt(lDIP[lDIP.length -1 ]) - lDIB[lDIB.length -1 ] )*13) + 1:  parseInt(lDIP[1])
     const vtotal = parseFloat(total.replace(/\./g, "").replace(",", "."));
     let pAnteriores = 0
     let pAtuais =  0
@@ -92,11 +93,13 @@ export default function Home() {
       console.log(pAtuais)
   
     }else if (lDIB[2] < lDataAtual[0] && lDIP[2] >= lDataAtual[0]){
-      pAnteriores = exerDIB
+      pAnteriores = exerDIB - parseInt(lDIB[1])
       pAtuais = exerDIP
       console.log("Terceiro")
-      console.log(pAnteriores)
-      console.log(pAtuais)
+      console.log(parseInt(lDIB[1]))
+
+      //console.log(pAnteriores)
+      //console.log(pAtuais)
   
     }
 
