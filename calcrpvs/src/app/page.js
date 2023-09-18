@@ -41,6 +41,17 @@ export default function Home() {
     setFormProc({ ...formProc, [e.target.name]: e.target.value });
   }
 
+  function handleLimpar(e) {
+    setForm({
+      total: "",
+      valorAnterior: 0,
+      valorAtual: 0,
+      parcelasAnteriores: 0,
+      parcelasAtuais: 0,
+      DIB: "",
+      DIP: "",
+    });;
+  }
   async function handleBuscaDados(e) {
     e.preventDefault();
     let dados = "";
@@ -123,6 +134,7 @@ export default function Home() {
       valorAtual: totalvAtual.toFixed(2),
     });
     //console.log(form);
+
   }
 
   return (
@@ -288,6 +300,7 @@ export default function Home() {
                 onChange={handleValueChange}
             />
 </div>*/}
+<div className="gap-x-10" >
             <button
               type="submit"
               onClick={handleCalcular}
@@ -295,8 +308,17 @@ export default function Home() {
             >
               Calcular
             </button>
+            {" "}
+            <button
+              type="submit"
+              onClick={handleLimpar}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+            Limpar
+            </button>
+            </div>
           </form>
-          <br></br>
+         
           <br></br>
           <br></br>
         </div>
