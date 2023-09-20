@@ -19,13 +19,13 @@ export default function Home() {
     DIB: "",
     DIP: "",
     principal: "",
-    percentual: "",
+    percentual: "30",
     juros: "",
     tjuros: "",
-    vAdvogado: "",
-    vAutor: "",
-    jurosAutor: "",
-    jurosAdvogado: "",
+    vAdvogado: 0,
+    vAutor: 0,
+    jurosAutor: 0,
+    jurosAdvogado: 0,
   });
   const [formProc, setFormProc] = useState({
     processo: "",
@@ -64,7 +64,6 @@ export default function Home() {
       vAutor: "",
       jurosAutor: "",
       jurosAdvogado: "",
-      vtotal: "",
     });
   }
   async function handleBuscaDados(e) {
@@ -80,13 +79,16 @@ export default function Home() {
   function handleCalcular(e) {
     e.preventDefault();
 
-    const { total, DIB, DIP } = form;
+    const { total, DIB, DIP, principal, juros } = form;
 
     let valorPrincAutor = 0;
     let valorPrincAdv = 0;
     let valorJurosAutor = 0;
     let valorJurosAdv = 0;
     let valorTotal = 0;
+    let totalSemJuros = parseFloat(
+      form.total.trim().replace(/\./g, "").replace(",", ".")
+    );
     let tPrincipal = parseFloat(
       form.principal.trim().replace(/\./g, "").replace(",", ".")
     );
@@ -96,12 +98,24 @@ export default function Home() {
       form.juros.trim().replace(/\./g, "").replace(",", ".")
     );
 
-    if (tPrincipal !== " " && tPercentual !== " " && tJuros !== " ") {
+    if (principal.length !== 0 && tPercentual !== "" && juros.length !== 0) {
+      tPrincipal = tPrincipal;
       valorPrincAutor = tPrincipal * (1 - tPercentual / 100);
       valorPrincAdv = (tPercentual / 100) * tPrincipal;
       valorJurosAutor = tJuros * (1 - tPercentual / 100);
       valorJurosAdv = (tPercentual / 100) * tJuros;
-      valorTotal =tPrincipal+ tJuros;
+      valorTotal = parseFloat(tPrincipal) + parseFloat(tJuros);
+      console.log(principal);
+      console.log("Com junros");
+    } else if (principal.length === 0 && juros.length === 0) {
+      valorPrincAutor = totalSemJuros * (1 - tPercentual / 100);
+      valorPrincAdv = (tPercentual / 100) * totalSemJuros;
+      valorJurosAutor = 0;
+      valorJurosAdv = 0;
+      valorTotal = parseFloat(totalSemJuros);
+
+      console.log("Sen juros");
+      console.log(valorTotal);
     }
 
     const dataAtual = new Date().toISOString().substring(0, 10);
@@ -150,7 +164,7 @@ export default function Home() {
       vAdvogado: valorPrincAdv.toFixed(2),
       jurosAutor: valorJurosAutor.toFixed(2),
       jurosAdvogado: valorJurosAdv.toFixed(2),
-      vtotal: valorTotal.toFixed(2),
+      principal: valorTotal.toFixed(2),
     });
     //console.log(form);
   }
@@ -215,7 +229,7 @@ export default function Home() {
             </div>
             <br></br>
             <p className="block text-gray-700 text-sm font-bold mb-2">
-              CÁLCULO DOS HONORÁRIOS{" "}
+              DESTAQUE DE HONORÁRIOS{" "}
             </p>
             <br></br>
             <div className="grid md:grid-cols-4 md:gap-6">
@@ -252,7 +266,7 @@ export default function Home() {
               </div>
               <div className="relative z-0 w-full mb-6 group">
                 <p className="block text-gray-700 text-sm font-bold mb-2">
-                  Juros:
+                  Com Juros:
                 </p>
                 <input
                   type="text"
@@ -264,24 +278,6 @@ export default function Home() {
                   placeholder=" "
                   required
                 />
-              </div>
-              <div className="relative z-0 w-full mb-6 group">
-                <p className="block text-gray-700 text-sm font-bold mb-2">
-                  Total:{" "}
-                </p>
-
-                <input
-                  type="text"
-                  value={form.vtotal}
-                  onChange={handleValores}
-                  name="vtotal"
-                  id="floating_first_name"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-
-                {/* PREENCHIMENTO DO RRA///////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/}
               </div>
             </div>{" "}
             <br></br>
