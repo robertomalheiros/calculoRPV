@@ -9,7 +9,7 @@ export default function Footer() {
           <div
             className="w-full p-4 text-center"
 >
-           By Roberto Malheiros & Miguel Lobo
+           By Roberto Malheiros & Miguel Lobo & Finotti
           
           </div>
         </footer>
