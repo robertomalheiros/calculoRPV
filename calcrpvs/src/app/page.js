@@ -78,8 +78,7 @@ export default function Home() {
     let dados = "";
     try {
 
-    const dados = await fetch("/api/dados", {
-
+    const dados = await fetch("/dados", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

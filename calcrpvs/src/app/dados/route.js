@@ -1,8 +1,10 @@
+
+
+import { NextResponse } from 'next/server'
 import buscaDados from "../components/BuscaPJE"
-import { NextResponse } from "next/server";
-
-
-export async function GET(request) {
-    const response = await buscaDados()
-    return NextResponse.json(response)
+export async function GET() {
+  const res = await (buscaDados())
+  const data = await res.json()
+ 
+  return NextResponse.json({ data })
 }
