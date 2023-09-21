@@ -1,0 +1,57 @@
+import puppeteer, { Page } from 'puppeteer-core'
+import chromiumOptions from './chromiumOptions'
+
+
+
+
+let _page = Page | null 
+
+
+async function getPage() {
+    if (_page) {
+        return _page
+    } else {
+        const options = await chromiumOptions
+        const browser = await puppeteer.launch(options)
+        _page = await browser.newPage()
+        return _page
+    }
+
+}
+
+
+
+async function buscaDados() {
+
+    const page = await getPage()
+    console.log("1-Executando Render");
+    // const browser = await puppeteer.launch();
+    // const page = await browser.newPage();
+  
+    await page.goto(url, { waitUntil: "networkidle2" });
+    console.log(`2-Abrindo Página: ${url}`);
+    const resultsSelector = ".lista-de-dou";
+  
+    let dou_detalhes = await page.evaluate(() => {
+      //Extrai os detalhes básicos de cada diario
+      let listaDOU = document.querySelector(".lista-de-dou");
+  
+      let diarios = Array.from(listaDOU.children);
+  
+      // Percorra cada diario e obtenha seus detalhes
+      let diario_info = diarios.map((diarios) => {
+        let titulo = diarios.querySelector(".title").innerHTML;
+        let orgao = diarios.querySelector(".tag").textContent;
+        let imagem = diarios.querySelector(".col-2 > a > img").src;
+        let pdf = diarios.querySelector(".col-2 > a").href;
+        let dataPublicacao = diarios.querySelector(".date").textContent;
+  
+        return { titulo, orgao, imagem, pdf, dataPublicacao };
+      });
+      return diario_info;
+    });
+}
+
+
+
+export default buscaDados;
