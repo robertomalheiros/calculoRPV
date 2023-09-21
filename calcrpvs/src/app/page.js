@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-//import BuscaDados from "./components/BuscaPJE";
+
 //import Datepicker from "react-tailwindcss-datepicker";
 
 export default function Home() {
@@ -78,6 +78,16 @@ export default function Home() {
     let dados = "";
     try {
 
+    const dados = await fetch("/api/dados", {
+
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const response = await dados.json();
+    console.log(response);
+  
        
     } catch (error) {
       console.log("Erro ao buscar os dados!");
