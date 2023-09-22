@@ -10,7 +10,7 @@ const exePath = chromeExecPaths[process.platform];
 const options = {
   args: [],
   executablePath: exePath,
-  headless: false,
+  headless: true,
 };
 
 let _page = Page | null;
@@ -104,13 +104,15 @@ async function buscaDados() {
 
   await page.evaluate(() => {
     //Extrai os detalhes básicos de cada diario
-    let listaLinks = document.querySelector("span");
+    let listaLinks = document.querySelector("divTimeLine");
 
     //console.log(listaLinks)
     let linksArray = Array.from(listaLinks.children);
 
     // Percorra cada diario e obtenha seus detalhes
     let linksInfo = linksArray.map((link) => {
+
+      document.querySelector("");
       console.log(link)
 
     });
