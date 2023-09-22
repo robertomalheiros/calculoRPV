@@ -2,7 +2,7 @@ import puppeteer, { Page } from "puppeteer";
 
 const chromeExecPaths = {
   win32: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-  linux: "/usr/bin/google-chrome",
+  linux: "/usr/bin/chromium-browser",
   darwin: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
 };
 const exePath = chromeExecPaths[process.platform];
