@@ -44,12 +44,14 @@ export default function Home() {
 
   function handleValores(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
+    const {numeroSequencial, numeroDigitoVerificadorAnoRespectivoTribunal} = formProc.processo.trim().split("-");
+    console.log(numeroSequencial);
   }
 
   function handleProc(e) {
     setFormProc({ ...formProc, [e.target.name]: e.target.value });
   }
-
+console.log
   function handleLimpar(e) {
     setForm({
       total: "",
@@ -76,6 +78,8 @@ export default function Home() {
     e.preventDefault();
     console.log("Buscando dados...");
     let dados = "";
+
+
     try {
 
     const dados = await fetch("/dados", {

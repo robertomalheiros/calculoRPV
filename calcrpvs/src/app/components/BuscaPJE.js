@@ -15,11 +15,13 @@ const options = {
 
 let _page = Page | null;
 
+let browser = null;
+
 async function getPage() {
   if (_page) {
     return _page;
   } else {
-    const browser = await puppeteer.launch(options);
+    browser = await puppeteer.launch(options);
     _page = await browser.newPage();
     return _page;
   }
@@ -37,11 +39,11 @@ async function buscaDados() {
   const username = await iframe.$("#username");
   await username.type("02806488559");
   const senha = await iframe.$("#password");
-  await senha.type("B&r&sh!t1406");
+  await senha.type("B&r&sh!t13");
   const entrar = await iframe.$("#kc-login");
   await entrar.click();
   await page.waitForNavigation();
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(1000);
   await page.click(
     "#divBas > div.col-sm-12.mb-20 > div.col-md-12.pt-20.pb-10.text-center > a"
   );
@@ -49,56 +51,78 @@ async function buscaDados() {
     "https://pje1g.trf1.jus.br/pje/Processo/ConsultaProcesso/listView.seam",
     { waitUntil: "networkidle0" }
   );
-  await page.waitForTimeout(3000);
-  //const input = await page.$$('div > div.value.col-sm-12 > div > input')
+  await page.waitForTimeout(1000);
+  await page.type("#fPP\\:numeroProcesso\\:numeroSequencial", "1004358");
+  await page.waitForTimeout(30);
+  await page.type("#fPP\\:numeroProcesso\\:numeroDigitoVerificador", "90");
+  await page.waitForTimeout(30);
+  await page.type("#fPP\\:numeroProcesso\\:Ano", "2023");
+  await page.waitForTimeout(30);
+  //await page.type("#fPP\\:numeroProcesso\\:ramoJustica", "4");
+  //await page.waitForTimeout(30);
+  //await page.type("#fPP\\:numeroProcesso\\:respectivoTribunal", "01");
+  //await page.waitForTimeout(30);
+  await page.type("#fPP\\:numeroProcesso\\:NumeroOrgaoJustica", "3307");
+  await page.waitForTimeout(30);
+  await page.click("#fPP\\:searchProcessos");
 
-  //await page.type('div > div.value.col-sm-12 > div > input', "1014070-07.2023.4.01.3307");
+  await page.waitForTimeout(2000);
 
-  const inputs = await page.$$("input");
-  let inputProc = "";
-  for (const input of inputs) {
-
-      await input.evaluate((node) =>
-        node.getAttribute("onblur") === "apenasNumeros(this)"
-          ? node.type("B&r&sh!t1406")
-          : null
-
-    );
-  }
-  await page.click(inputProc)
   /*
-    //await page.type("input", "1014070-07.2023.4.01.3307");
-    //await page.waitForTimeout(5000);
-    //await page.click("#fPP\:searchProcessos");
-    
-    await page.evaluate(() => {
+     await page.evaluate(() => {
       //Extrai os detalhes básicos de cada diario
       let inputs = document.querySelector("input");
-  
-      let listaInputs = Array.from(inputs.children);
-    
-      console.log(listaInputs);
-    })
-   
-  
-    let dou_detalhes = await page.evaluate(() => {
-      //Extrai os detalhes básicos de cada diario
-      let listaDOU = document.querySelector(".lista-de-dou");
-  
-      let diarios = Array.from(listaDOU.children);
-  
-      // Percorra cada diario e obtenha seus detalhes
-      let diario_info = diarios.map((diarios) => {
-        let titulo = diarios.querySelector(".title").innerHTML;
-        let orgao = diarios.querySelector(".tag").textContent;
-        let imagem = diarios.querySelector(".col-2 > a > img").src;
-        let pdf = diarios.querySelector(".col-2 > a").href;
-        let dataPublicacao = diarios.querySelector(".date").textContent;
-  
-        return { titulo, orgao, imagem, pdf, dataPublicacao };
-      });
-      return diario_info;
-    }); */
+       let listaInputs = Array.from(inputs.children);
+       console.log(listaInputs);
+    })*/
+
+  await page.evaluate(() => {
+    //Extrai os detalhes básicos de cada diario
+    let listaLinks = document.querySelector("#fPP\\:processosTable");
+
+    //console.log(listaLinks)
+    let linksArray = Array.from(listaLinks.children);
+
+    // Percorra cada diario e obtenha seus detalhes
+    let linksInfo = linksArray.map((link) => {
+      let td = link.querySelector("td > a");
+
+      if (td) {
+        // Ative o evento onclick simulando um clique
+        td.click();
+      } else {
+        console.error("Elemento não encontrado ou não possui evento onclick.");
+      }
+    });
+  });
+
+
+  console.log("Entrando na página do processo")
+  const paginas = await browser.pages();
+  const novaPagina = paginas[paginas.length - 1];
+
+
+  await page.evaluate(() => {
+    //Extrai os detalhes básicos de cada diario
+    let listaLinks = document.querySelector("span");
+
+    //console.log(listaLinks)
+    let linksArray = Array.from(listaLinks.children);
+
+    // Percorra cada diario e obtenha seus detalhes
+    let linksInfo = linksArray.map((link) => {
+      console.log(link)
+
+    });
+  });
+
+ 
+
+  // Capture o HTML da nova página
+  const html = await novaPagina.content();
+
+  // Agora você tem o HTML da nova página na variável 'html'
+  //console.log(html);
 }
 
 export default buscaDados;
