@@ -44,14 +44,15 @@ export default function Home() {
 
   function handleValores(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-    const {numeroSequencial, numeroDigitoVerificadorAnoRespectivoTribunal} = formProc.processo.trim().split("-");
+    const { numeroSequencial, numeroDigitoVerificadorAnoRespectivoTribunal } =
+      formProc.processo.trim().split("-");
     console.log(numeroSequencial);
   }
 
   function handleProc(e) {
     setFormProc({ ...formProc, [e.target.name]: e.target.value });
   }
-console.log
+  console.log;
   function handleLimpar(e) {
     setForm({
       total: "",
@@ -71,34 +72,37 @@ console.log
       jurosHerdeiro: "",
       jurosAutor: "",
       jurosAdvogado: "",
-
     });
   }
   async function handleBuscaDados(e) {
     e.preventDefault();
     console.log("Buscando dados...");
-    let dados = "";
-
-
     try {
-
-    const dados = await fetch("/dados", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const response = await dados.json();
-    console.log(response);
-  
-       
+      const dados = await fetch("api/dados", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formProc),
+      });
+      const response = await dados.json();
+      const { DadosJson } = response;
+      const Dados = JSON.parse(DadosJson);
+      console.log(Dados.DIB);
+      setForm({
+        ...form,
+        DIB: Dados.DIB,
+        DIP: Dados.DIP,
+        total: Dados.valor,
+      });
+      //handleCalcular()
     } catch (error) {
-      console.log("Erro ao buscar os dados!");
+      console.log("Erro em page: " +error);
     }
   }
 
-  function handleCalcular(e) {
-    e.preventDefault();
+  function handleCalcular() {
+  
 
     const { total, DIB, DIP, principal, juros } = form;
 
@@ -127,7 +131,7 @@ console.log
       valorJurosAdv = (tPercentual / 100) * tJuros;
       valorTotal = parseFloat(tPrincipal) + parseFloat(tJuros);
       console.log(principal);
-      console.log("Com junros");
+      console.log("Com juros");
     } else if (principal.length === 0 && juros.length === 0) {
       valorPrincAutor = totalSemJuros * (1 - tPercentual / 100);
       valorPrincAdv = (tPercentual / 100) * totalSemJuros;
@@ -135,7 +139,7 @@ console.log
       valorJurosAdv = 0;
       valorTotal = parseFloat(totalSemJuros);
 
-      console.log("Sen juros");
+      console.log("Sem juros");
       console.log(valorTotal);
     }
 
@@ -198,21 +202,21 @@ console.log
             CÁLCULO RPVs
           </p>
           <div className="gap-x-10">
-              <button
-                type="submit"
-                onClick={handleCalcular}
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Calcular
-              </button>{" "}
-              <button
-                type="submit"
-                onClick={handleLimpar}
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Limpar
-              </button>
-            </div>
+            <button
+              type="submit"
+              onClick={handleCalcular}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Calcular
+            </button>{" "}
+            <button
+              type="submit"
+              onClick={handleLimpar}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Limpar
+            </button>
+          </div>
           <br></br>
 
           <form>
@@ -318,7 +322,7 @@ console.log
               </div>
               <div className="relative z-0 w-full mb-6 group">
                 <p className="block text-gray-700 text-sm font-bold mb-2">
-                  Qt. Herdeiros(Em Contrução):
+                  Qt. Herdeiros(Em Construção):
                 </p>
                 <input
                   type="text"
@@ -527,8 +531,6 @@ console.log
                   Juros do herdeiro
                 </label>
               </div>
-              
-
             </div>{" "}
             {/* <div className="relative z-0 w-full mb-6 group">
    
