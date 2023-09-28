@@ -4,7 +4,7 @@ import puppeteer, { Frame, Page } from "puppeteer";
 
 const chromeExecPaths = {
   win32: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-  linux: "/usr/bin/chromium",
+  linux: '/usr/bin/chromium-browser',
   darwin: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
 };
 const exePath = chromeExecPaths[process.platform];
@@ -23,6 +23,7 @@ async function buscaDados(usuario, password, processo) {
     const options = {
       args: ["--no-sandbox",
       "--disable-setuid-sandbox"],
+      ignoreDefaultArgs: ['--disable-extensions'],
       executablePath: exePath,
       headless: true,
     };
