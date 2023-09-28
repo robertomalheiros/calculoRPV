@@ -29,5 +29,12 @@
     "react-dom": "18.2.0",
     "react-tailwindcss-datepicker": "^1.6.6",
     "tailwindcss": "^3.3.3"
-  }
+  }, 
+  "browserslist": [
+    "chrome 64",
+    "edge 79",
+    "firefox 67",
+    "opera 51",
+    "safari 12"
+  ]
 }
