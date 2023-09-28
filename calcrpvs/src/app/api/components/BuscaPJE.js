@@ -21,9 +21,10 @@ async function buscaDados(usuario, password, processo) {
   };
   try {
     const options = {
-      args: [],
+      args: ["--no-sandbox",
+      "--disable-setuid-sandbox"],
       executablePath: exePath,
-      headless: false,
+      headless: true,
     };
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
