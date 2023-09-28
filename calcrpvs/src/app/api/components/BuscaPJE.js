@@ -31,7 +31,7 @@ async function buscaDados(usuario, password, processo) {
 ],
       ignoreDefaultArgs: ['--disable-extensions'],
       executablePath: exePath,
-      headless: false,
+      headless: true,
     };
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
