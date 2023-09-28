@@ -28,7 +28,7 @@ async function buscaDados(usuario, password, processo) {
     '--no-first-run',
     '--no-sandbox',
     '--no-zygote',
-    '--single-process',],
+],
       ignoreDefaultArgs: ['--disable-extensions'],
       executablePath: exePath,
       headless: true,

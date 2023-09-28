@@ -28,10 +28,10 @@ async function buscaDados(usuario, password, processo) {
       '--no-first-run',
       '--no-sandbox',
       '--no-zygote',
-      '--single-process',],
+],
       ignoreDefaultArgs: ['--disable-extensions'],
       executablePath: exePath,
-      headless: true,
+      headless: false,
     };
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
