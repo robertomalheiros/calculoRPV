@@ -567,7 +567,7 @@ export default function Home() {
         <p className="block text-gray-700 text-sm font-bold mb-2">
           CONSULTAR DADOS DO PROCESSO:
         </p>
-
+          <p>(Funcionando em desenvolvimento)</p>
         <br></br>
 
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
