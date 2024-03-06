@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 
 let puppeteer;
 let browser;
+let chromium;
 //dotenv.config();
 
 async function launchBrowser() {
@@ -12,13 +13,14 @@ async function launchBrowser() {
     if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
       console.log("AWS");
         // AWS Lambda
-        const chromium = require("@sparticuz/chromium")
+        chromium = require("@sparticuz/chromium")
         puppeteer = require("puppeteer-core");
         browser = await chromium.puppeteer.launch({
             args: chromium.args,
             defaultViewport: chromium.defaultViewport,
             executablePath: await chromium.executablePath,
             headless: chromium.headless,
+            ignoreHTTPSErrors: true,
         });
     } else if (process.env.DOCKER) {
         // Docker
@@ -49,8 +51,8 @@ async function launchBrowser() {
     }
 }
 
-
-
+await launchBrowser().catch(console.error);
+console.log(`Instancia de Chromium: ${chromium}`)
 async function buscaDados(usuario, password, processo) {
   console.log(`Processo: ${processo}`);
 
