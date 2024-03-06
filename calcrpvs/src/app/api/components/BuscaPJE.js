@@ -1,10 +1,10 @@
 let chromium = require("@sparticuz/chromium")
 let puppeteer = require("puppeteer-core");
         
-let browser = await chromium.puppeteer.launch({
+let browser =  chromium.puppeteer.launch({
   args: chromium.args,
   defaultViewport: chromium.defaultViewport,
-  executablePath: await chromium.executablePath,
+  executablePath:  chromium.executablePath,
   headless: chromium.headless,
   ignoreHTTPSErrors: true,
 });
