@@ -1,11 +1,11 @@
 import { PT_Mono } from "next/font/google";
 
-import * as dotenv from "dotenv";
+//import * as dotenv from "dotenv";
 import { NextResponse } from "next/server";
 
 let puppeteer;
 let browser;
-dotenv.config();
+//dotenv.config();
 
 async function launchBrowser() {
   console.log(`Variável de ambiente: ${process.env.AWS_LAMBDA_FUNCTION_VERSION}`)
@@ -49,7 +49,7 @@ async function launchBrowser() {
     }
 }
 
-await launchBrowser().catch(console.error);
+
 
 async function buscaDados(usuario, password, processo) {
   console.log(`Processo: ${processo}`);
@@ -62,7 +62,7 @@ async function buscaDados(usuario, password, processo) {
     valor: "",
   };
   try {
-    
+    await launchBrowser().catch(console.error);
     const page = await browser.newPage();
     const url = "https://pje1g.trf1.jus.br/pje/login.seam";
     await page.goto(url, { waitUntil: "domcontentloaded" });
