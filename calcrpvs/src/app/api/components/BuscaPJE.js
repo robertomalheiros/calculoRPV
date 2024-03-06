@@ -43,7 +43,7 @@ async function launchBrowser() {
         puppeteer = require("puppeteer");
         browser = await puppeteer.launch(
           {
-            headless: true,
+            headless: false,
         }
         );
         console.log("Local");
