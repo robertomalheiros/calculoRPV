@@ -10,6 +10,7 @@ dotenv.config();
 async function launchBrowser() {
   console.log(`Variável de ambiente: ${process.env.AWS_LAMBDA_FUNCTION_VERSION}`)
     if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+      console.log("AWS");
         // AWS Lambda
         const chromium = require("@sparticuz/chromium")
         puppeteer = require("puppeteer-core");
@@ -19,9 +20,9 @@ async function launchBrowser() {
             executablePath: await chromium.executablePath,
             headless: chromium.headless,
         });
-        console.log("AWS");
     } else if (process.env.DOCKER) {
         // Docker
+        console.log("Docker");
         puppeteer = require("puppeteer");
         browser = await puppeteer.launch({
             args: [
@@ -35,7 +36,7 @@ async function launchBrowser() {
                     ? process.env.PUPPETEER_EXECUTABLE_PATH
                     : puppeteer.executablePath(),
         });
-        console.log("Docker");
+
     } else {
         // Local development
         puppeteer = require("puppeteer");
