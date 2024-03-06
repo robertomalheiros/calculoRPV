@@ -1,15 +1,58 @@
-let chromium = require("@sparticuz/chromium")
-let puppeteer = require("puppeteer-core");
-        
-let browser = await chromium.puppeteer.launch({
-  args: chromium.args,
-  defaultViewport: chromium.defaultViewport,
-  executablePath: await chromium.executablePath,
-  headless: chromium.headless,
-  ignoreHTTPSErrors: true,
-});
+import { PT_Mono } from "next/font/google";
 
+//import * as dotenv from "dotenv";
+import { NextResponse } from "next/server";
 
+let puppeteer;
+let browser;
+let chromium;
+//dotenv.config();
+
+async function launchBrowser() {
+  console.log(`Variável de ambiente: ${process.env.AWS_LAMBDA_FUNCTION_VERSION}`)
+    if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+      console.log("AWS");
+        // AWS Lambda
+        chromium = require("@sparticuz/chromium")
+        puppeteer = require("puppeteer-core");
+        browser = await chromium.puppeteer.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath,
+            headless: chromium.headless,
+            ignoreHTTPSErrors: true,
+        });
+    } else if (process.env.DOCKER) {
+        // Docker
+        console.log("Docker");
+        puppeteer = require("puppeteer");
+        browser = await puppeteer.launch({
+            args: [
+                "--disable-setuid-sandbox",
+                "--no-sandbox",
+                "--single-process",
+                "--no-zygote",
+            ],
+            executablePath:
+                process.env.NODE_ENV === "production"
+                    ? process.env.PUPPETEER_EXECUTABLE_PATH
+                    : puppeteer.executablePath(),
+        });
+
+    } else {
+        // Local development
+        puppeteer = require("puppeteer");
+        browser = await puppeteer.launch(
+          {
+            headless: false,
+        }
+        );
+        console.log("Local");
+    }
+}
+
+await launchBrowser().catch(console.error);
+console.log(`Instancia de Chromium: ${chromium}`)
 async function buscaDados(usuario, password, processo) {
   console.log(`Processo: ${processo}`);
 
