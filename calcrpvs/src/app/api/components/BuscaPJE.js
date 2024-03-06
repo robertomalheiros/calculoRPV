@@ -6,11 +6,9 @@ import { NextResponse } from "next/server";
 let puppeteer;
 let browser;
 dotenv.config();
-//let url = process.env.URL_ALVO;
-//console.log(url)
-
 
 async function launchBrowser() {
+  console.log(`Variável de ambiente: ${process.env.AWS_LAMBDA_FUNCTION_VERSION}`)
     if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
         // AWS Lambda
         const chromium = require("@sparticuz/chromium")
