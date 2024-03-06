@@ -21,7 +21,7 @@ async function buscaDados(usuario, password, processo) {
     valor: "",
   };
   try {
-    await launchBrowser().catch(console.error);
+
     const page = await browser.newPage();
     const url = "https://pje1g.trf1.jus.br/pje/login.seam";
     await page.goto(url, { waitUntil: "domcontentloaded" });
